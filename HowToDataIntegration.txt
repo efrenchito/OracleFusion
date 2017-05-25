@@ -1,0 +1,171 @@
+>Learn about ERP Cloud Integrations
+  Oracle ERP Cloud Integrations (Doc ID 1990910.1)  -> Oracle_ERP_Cloud_Service_Integration.pdf
+   + Executive Summary
+     With Oracle ERP Cloud Service you can maximize your IT investments in third party or legacy
+     applications with ease to form  a complete solution for your essential business processes.
+     Integration with Oracle ERP Cloud Service is made up of two categories, inbound and outbound.
+
+     Inbound integrations can be achieved with cloud connectors. Cloud connectors provide the capability
+     to receive and process information from legacy applications. Cloud connectors may be used in combination
+     with one another and are classified as follows:
+      - Web Services, File Based Data Load, Point connectors
+
+     Outbound integrations are built  using the Business Inteligence capabilities embedded in Oracle ERP Cloud Service.
+   + Pre-packaged Integrations
+     Coexistence provides an opportunity for organizations to choose the best from existing and available systems and
+     incrementally adopt new solutions without the expense of a complete overhaul. These solutions enable integrations
+     (Cloud to Cloud) or (Cloud to On-premise)
+   + Inbound Integrations
+     Cloud Connectors
+      Oracle ERP Cloud Service provides a robust framework for inbound integrations
+      which includes infraestructure that enables spreadsheet based data load and an
+      extensive list of web services that can be leveraged for integrating with legacy
+      third party or point solutions.
+     File Based Data Load
+      Oracle ERP Cloud Service provides the capability to load bulk transactions via a spreadsheet based import process.
+      Oracle Enterprise Repository (OER) includes the spreadsheets templates and information to help you prepare external
+      data for upload and import. Each template includes specific instructions, guidelines, formatted spreadsheets, and
+      best practices for preparing the data file for Upload. Use the templates to ensure that your data conforms to the
+      structure and format of Oracle ERP Cloud Service interfaces.
+      Oracle provides the spreadsheet templates for you to leverage for recording transaction details.
+      These templates are structured for ease of entry and include detailed instructions for creating the data files.
+      Once the data files are created they are placed in Oracle Universal Content Management Server (UCM)
+      prior to initiating the Load Interface File process to load data and process transactions.
+
+              ORACLE
+        Enterprise Repository     Data Sources (LEGACY)
+                 |                      |
+                 V                      V                 Upload to Oracle                          Load File to    Load to Application
+         Download Spreadsheet  =>  Populate Data       =>  Content Server   => Oracle Cloud (UCM ->   Interface  ->     tables
+             templates            Generate CSV files        Oracle (UCM)
+
+     Web Services
+      In addition to the File Based Data Load, Oracle ERP Cloud Service provides several web services (ADF services)
+      that can be invoked by third party applications from different platforms and, using  other
+      integration technologies like Oracle Data Integrator (ODI), a ADF Mobile Application, etc...
+
+      The Oracle Enterprise Repository (OER) provides the details of the available web services. You can access OER
+      with ‘Login as Guest’. Search for the available web services by entering the search string of ‘External’ and set the
+      Type as ‘ADF Service’ in the ‘Assets’ search panel on the left.
+   + Outbound Integrations
+      ...
+
+>Understanding External Data Integration
+ https://docs.oracle.com/cloud/latest/financialscs_gs/FACSF/FACSF1224258.htm#FACSF1224258
+  1.Spreadsheet Templates
+  2.File-based load process
+  3.Application-specific data import process.
+
+>Using External Data Integration Services for Oracle ERP Cloud (Doc ID 2102800.1)
+  +Overview
+   Oracle ERP integration scenarios generally involve system-to-system integration
+   flows between distinct on-premise systems, third-party or legacy systems, and
+   Cloud systems.
+   - Inbound Data Management  -> Oracle ERP Cloud Bulk Data Import Services
+      -> External data integration services for accommodating inbound data in Oracle ERP Cloud
+      include the following components:
+        1.Spreadsheet Templates
+        2.File-based load process
+        3.Application-specific data import process.
+
+      To automatically import data into Oracle ERP Cloud:
+       1. Create the data file using the applicable inbound business object template.
+       2. Invoke the Oracle ERP Integration Service to initiate import.
+       3. Provide notification through asynchronous callback upon completion.
+       4. Deliver the import status and information using callback to access logs or errors.
+       5. Review any errors, if applicable, and take appropriate action for error resolution.
+       ::::::::::
+       Note: After completion, Oracle ERP Cloud extracts data from the interface and error tables, includes the ESS job
+         lob files, and upload the files to the UCM (Universal Content Management) server in a ZIP format. Once uploaded
+         successfuly to the respective UCM account, data from the interface and error tables will be purged.
+   - Outbound Data Management -> Oracle ERP Cloud Bulk Data Export Services
+      -> Exporting data from Oracle ERP Cloud typically consists of the following steps:
+        1. Create a BI Publisher report(s) using the respective Enterprise Scheduler (ESS) job for BI Publisher Dashboard.
+        2. Invoke the Oracle ERP Integration Service to initeate the respective export job.
+        3. Provide notification through asynchronous callback upon completion.
+        4. Deliver the status and information using callback to access extracted Data file(s) from the Oracle ERP Cloud.
+        5. Review any errors if applicable and take appropiate action, such as process the data extracted for further
+        downstream business operation needs.
+  +Automated End-to-End Inbound (Bulk Import) Orchestrated Flow
+    To illustrate -> Journals Import flow as an example
+    -Prerequisites:
+     -> see Apendix5: Testing Web Service using a Client Proxy.
+      .Import a certificate into your local keystore.
+      .Configure the sample web service tester.
+      .Identify user name and password to call the import.
+      .Verify that user has access to the AttachmentsRead role in UCM server.
+        -> see Appendix1. Security Prerequisites to Download the Job Output File.
+      .Verify the end point URL for the web service.
+    -Flow Steps:
+      1.Generate the data file for the object you want to import.
+      2.Prepare the request payload for the ImportBulkData operation of the
+        Oracle ERP Integration Service. This web service operation performs:
+         a.Uploads the data file to the UCM server.
+         b.Loads data from the file on the UCM server to the respective product interface table(s).
+         c.Imports data from the product interface table(s) to the respective Oracle ERP product main table(s).
+         d.Extracts errors and logs into a ZIP file and uploads them to respectively UCM account.
+         e.Purges the interface and errors tables related to the respective import job.
+         f.Notifies users upon completion of all ESS jobs using bell, e-mail or callback URL as defined in the payload.
+
+      Generating the Inbound Data File
+       Each template includes table-specific instructions, guideline, formatted
+       spreadsheets and best practices for preparing the data file or upload.
+        -> When preparing external data using the templates:
+           - Download the applicable import template
+           - Prepare data using the correct spreadsheet import template
+      Downloading a Template
+       1.Open the File-Based Data Import guide for your cloud service. Locate the import process of interest.
+       2.View the list of files:
+         . Control files describe the logical flow of the data load process
+         . Spreadsheet templates include the worksheets and macros for structuring, formatting and generating your data file.
+        ::::::::
+        Note: You can use XML templates to import data into Oracle Data Integrator.
+        For more information, see Appendix 8: Using XML Templates to Generate Data Files.
+       3.Click the applicable template URL in the File links table to download the file.
+      Preparing Data Using the Spreadsheet Template
+       To prepare your data in a spreadsheet format:
+       1.Open the spreadsheet template. (The first worksheet in each file provides instructions)
+       2.Enter the required data and then save the file.
+       3.Click the Generate CSV file button.
+         -> The macro generates a comma-separated values (CSV) file and also compresses the file into a ZIP file.
+         You must transfer the ZIP file to the Oracle Content Management Server (UCM)
+         - Overview of Template Structure
+           .Each interface table is represented by a separate worksheet.
+           .Each interface table field is represented by a worksheet column with a header in the first row.
+           .Each column header contains bubble help text or help comments that include details about the column.
+           .Columns are formatted, where applicable, to match the target field data type.
+           .The worksheet columns are in the order that the control file process the data file.
+         - Template Requirements
+          To minimize the risks of an unsuccessful data load, ensure the following:
+           .Unused columns can be hidden, but they cannot be reordered or deleted.
+           .
+           .
+           .
+  +Automated End-to-End Outbound (Bulk Export) Orchestrated Flow
+      To illustrate -> Extract Receivables Transactions flow as an example
+      Prerequisites:
+       -> see Apendix5: Testing Web Service using a Client Proxy.
+       .Import a certificate into your local keystore.
+       .Configure the sample web service tester.
+       .Identify user name and password to call the import.
+       .Verify that user has access to the AttachmentsRead role in UCM server.
+         -> see Appendix1. Security Prerequisites to Download the Job Output File.
+       .Verify the end point URL for the web service.
+      Flow Steps:
+        1.
+        2.
+        3.
+  +Flow Automation using the Oracle ERP Integration Web Service
+    -Constructing the Oracle ERP Integration Service End Point URL
+    -Critical Web Service Operations to Automate Integration Flows
+    -Operation: importBulkData
+    -Sample Response from the importBulkData Operation
+    -Operation: exportBulkData
+    -Operation: getDocumentForDocumentId
+    -Security Policy of the Oracle ERP Integration Service
+    -Callback Web Service
+    -Callback Response in JSON Format
+  +Correcting Load Process Errors
+    -Correcting Interface Data Errors
+
+> Review SOAP Web Services

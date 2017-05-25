@@ -1,0 +1,433 @@
+http://www.oracle.com/technetwork/middleware/service-bus/documentation/index.html -> Documentation for Oracle Service Bus
+https://docs.oracle.com/cd/E23943_01/doc.1111/e15020/toc.htm   -> Fusion Middleware Concepts and Architecture for Oracle Service Bus
+https://docs.oracle.com/cd/E23943_01/dev.1111/e15866/toc.htm   -> Fusion Middleware Developer's Guide for Oracle Service Bus
+http://docs.oracle.com/middleware/12211/osb/develop/index.html -> Fusion Middleware Developing Services with Oracle Service Bus
+
+Oracle Service Bus Architecture
+  https://docs.oracle.com/html/E15020_01/architecture_overview.htm
+  Gestion Servicios:
+   - Monitoreo;
+   - Alertas SLA;
+   - Reportes(LOGs)
+  Virtualizacion Servicios:
+   - Ruteo basado en Contenido;Transformaciones;Encadenamiento de Servicios
+  Mensajeria Adaptativa:
+	 - SBL; JDE; JCA;  -> Consumir BdeD
+	   JMS  -> Colas; JDBC; REST; FTP; File; EJB;
+
+  Flexibilidad y Adaptibilidad: +300 conectores, soporta servicios, protocolos, aplicaciones...
+  Transformación de Información: XML, binario, texto...
+  Aislar del cambio: Gestion de protocolos, Mejores practicas en manipulación de mensajes y servicios
+  Interfaz simple y amigable: Orientado a la configuración, Cero codificación
+  Administración embebida de servicios: Gobierno optimizado para mensajeria
+Oracle Service Bus [Adminsitration Console]
+  + Operations>Project Explorer     -> Visualizar los proyectos importados/creados existentes BUS
+   Visualizas los proyectos creados en el sistema
+     Puedes acceder al WebLogic Console Server: Configurar conexiones...
+     Desde el OSB Administration Console, puedes crear pero puedes trabajarlo desde otros IDEs:
+     -> Create the Oracle Service Bus Project [OSBTest]
+      +Eclipse (OEPE) Oracle Enterprise Pack for Eclipse
+       File>New>Oracle Service Bus>Oracle Service Bus Project
+         Project Name: OSBTest
+           File>New Folder "JCA"
+     -> Create the Java Connector Adapter [OSBTest>JCA]
+      +JDeveloper
+       File>New>SOA Project
+        ->  Add Database Adapter
+           Step1: Welcome to the Adapter Configuration Wizard
+           Step2: Service Name = 'ConsultaJCA'
+           Step3: Service Connection
+             Connection: TST140
+             User Name: apps
+             Driver: oracle.jdbc.OracleDriver
+             Connect String: jdbc:oracle:thin:@10.60.40.66:1572:TST140
+             JNDI Name: eis/DB/TST140
+           Step4:
+            Operation Type:
+                Call a Stored Procedure or Function
+              [x]Perform an Operation on a Table
+                   Insert or Update (Merge)
+                   Insert Only
+                   Update Only
+                   Delete
+                [x]Select
+                   Select By Primary Key
+                   Query By Example
+                 Poll for New or Changed Records in a Table
+                 Execute Pure SQL
+
+            Cache usage: none (default)
+           Step5: Select Table 'XX_OSB_TEST'
+           Step6: Define Primary Keys
+           Step7: Relationships
+           Step8: Attribute Filtering  --Uncheck any attributes that you would
+                  like to exclude from the database queries for this service
+           Step9: Define Selection Criteria
+             Parameters: P_NUM
+             SQL: SELECT numero, description FROM xx_osb_test
+               -> Click on EDIT
+                  SELECT numero, description FROM xx_osb_test WHERE (NUMERO = #P_NUM)
+           Step10: Advanced Options
+           Finish
+        In the project explorer you can see those JCA files:
+          xsd>ConsultaJCA_table.xsd
+          ConsultaJCA_db.jca -> *Check the location and UIConnectionName
+          ConsultaJCA.wsdl
+          ConsultaJCA-or-mappings.xml
+          ConsultaJCA-properties.xml
+      +Eclipse
+        Copy files created in JDeveloper by JCA
+      +Oracle Service Bus Administration Console
+        [Project Name]>sender>Adapter  -> PedidoDA_DB (JCA Binding)
+     -> Understanding ProxyService/BusinessService terminology
+                  <<<[::::: Oracle Service Bus ::::::]>>>
+                                                        ~file-> Impl1
+      Client1 -FTP--> ProxyServiceA -> BusinessServiceX -JMS -> Impl1
+      Client2 -RMI--> ProxyServiceB -> BusinessServiceY -SOAP-> Impl2
+      Client3 -SOAP-> ProxyServiceC ~
+
+      Para entender un poco más de la funcionalidad dentro del Oracle Service Bus
+      es necesario hablar del ProxyService/BusinessService.
+      El ProxyService es quien me permite exponer una funcionalidad en determinado
+      protocolo(RMI/FTP/SOAP/REST), en este caso el BusinessService encapsula dicha
+      funcionalidad que posteriormente será expuesta por nuestro ProxyService.
+      -> Siendo ambos WebService's (ProxyService/BusinessService)
+     -> Create the BusinessService [OSBTest>Business]
+      +Eclipse
+        OSBTest -> File>New Folder
+         Folder Name: Business
+        [OSBTest>JCA>ConsultaJCA_db.jca] -> Right Click > Oracle Service Bus> Generate Service
+          Service name: ConsultaJCA_BS
+          WSDL name:    ConsultaJCA_BS_WSDL
+  + Operations>System Administration -> Importar/Exportar Proyectos
+
+WS-PEL 2.0 for SOA Composite Applications Suite
+   -Orchestration Engine (BPEL Process Manager)
+   -Oracle Business Rules (OBR)
+   -Modeling Tools (JDeveloper IDE)
+   -Process Monitoring Tool (Oracle BAM)
+   -Data Service Bus (Oracle Bus Service)
+
+  Chapter1. Introduction to BPEL and SOA
+   BPEL(Business Process Execution Language for Web Services, also WS-BPEL)
+   is a language used for the composition, orchestration, and coordination of Web Services.
+   In this chapter, we will introduce BPEL, define its role with regard to Service-Oriented
+   Architecture (SOA), and explain the process-oriented approach to SOA and the role of BPEL.
+   We shall also provide short descriptions of the most important BPEL servers—the run‑time
+   environments for the execution of business processes specified in BPEL.
+   We will also compare BPEL to other business process languages.
+
+   Service Oriented Architecture
+    A Service-Oriented Architecture is the latest architectural approach
+    related to the integration, development, and maintenance of complex enterprise
+    information systems. SOA is not a radically new architecture, but rather the evolution of well-known
+    distributed architectures and integration methods. Integration between applications
+    has evolved from early days into well-defined integration methods and principles,
+    often referred to as Enterprise Application Integration (EAI).
+
+    A Service-Oriented Architecture has several goals, but the two most important goals are to:
+      • Provide end-to-end automation of business processes.
+         To achieve end-to-end automation of business processes, SOA introduces a special language—BPEL
+         (Business Process Execution Language).
+           -> BPEL is the most popular, commonly accepted specialized language for business process automation
+      • Achieving adaptable and flexible IT architecture
+          Provide a flexible, adaptable IT architecture Where applications are modularized,
+          consolidated, decoupled, and where business logic is contained in autonomous,
+          encapsulated, loosely coupled, and reusable components called services.
+
+    In SOA, services become the main building blocks of the overall IT architecture.
+    Services guide us into good development practices, they enable better and more efficient integration.
+    Services are also the main building blocks of BPEL processes. They are the executable
+    artifacts. Those services that expose high-level, coarse-grained operations are called
+    business services. BPEL uses business services to execute process activities.
+    *** -> Business services should be designed in a reusable manner, which means that a
+     single business service can be used by more than one BPEL process
+
+    How to develop services
+     There are several possibilities in which we can develop services. They are:
+        • Developing services from scratch.
+        • Exposing the functionality of existing applications through services.
+        • Using services provided by a third party.
+   SOA concepts
+    SOA is more than just a set of technologies. SOA is not directly related to any
+    technology, although it is most often implemented with Web Services. Web Services
+    are the most appropriate technology for SOA realization. However, using Web
+    Services is not adequate to build SOA. We have to use Web Services according
+    to the concepts that SOA defines.
+
+    The most important SOA concepts are:
+      • SERVICES: Services provide business functionalities. This differs considerably from technology-oriented
+          functionalities. Services in SOA must provide business value, hide implementation details, and be autonomous.
+      • INTERFACES: Service consumers access the service through its interface. The interface of a service
+          defines a set of public operation signatures.Self-describing, standardized interfaces with coarse granulation
+      • MESSAGES: Operations are defined as a set of messages. Messages specify the data to be
+          exchanged and describe it in a platform- and language-independent way using schemas.
+          Service consumers can use synchronous or asynchronous communication modes to invoke the operations of services.
+      • LOOSE COUPLING: Loosely coupled services are services that expose only the necessary dependencies and reduce all kinds of artificial
+          dependencies. This is particularly important when services are subject to frequent changes. Minimal dependencies assure us that
+          there will be minimal number of changes required to other services when one service is modified
+      • REUSABILITY: SOA is about the consolidation of functionalities. Therefore, the common goal is to
+          have a single service for each business functionality. In other words, we should not allow having
+          more than one service with equal or similar functionalities
+      • REGISTRIES AND REPOSITORIES: To simplify and automate searching for the appropriate service, services are
+          maintained in service registries, which act as directory listings. Service providers
+          publish services in registries; service consumers look up the services in the registries.
+      • QUALITY OF SERVICE: Services usually have associated Quality of Service attributes. Such attributes include
+          security, reliable messaging, transaction, correlation, management, policy, and other requirements.
+      • COMPOSITION OF SERVICES INTO BUSINESS PROCESSES: Services usually have associated Quality of Service attributes. Such attributes include
+          security, reliable messaging, transaction, correlation, management, policy, and other requirements.
+   SOA Building Blocks
+     Let us now have a closer look at the SOA building blocks that enable us to realize the above-mentioned concepts:
+      •BPEL: Business Process Automation with service compositino
+      •SERVICES: This is for achieving modular and flexible architecture. Web Services technology is usually used.
+      •ENTERPRISE SERVICE BUS (ESB): Provides a means for services and processes to communicate, and enables management and control over the communication.
+      •REGISTRIES AND REPOSITORIES: Central directories of services and useful for locating and reusing services.
+      •HUMAN TASK SUPPORT:Business processes often involve human interaction. WSHumanTask and BPEL4People.
+      •Process monitoring or Business Activity Monitoring (BAM)
+      •Business Rules Management Systems (BRMS) or Rule Engine
+      •Adapters
+
+     BPEL for process automation
+       Business processes are thus defined as a collection of activities through which services are
+       invoked. For the outside world (that is, for the clients) a business process looks like any other service.
+       In real-world scenarios we will usually create two kinds of business processes—those that will contain services
+       from within the enterprise only, and those that will consume services provided by several companies.
+
+       The composition of services into business processes could be realized using one of the well-known
+       programming languages (Java, C#, and so on), but it turns out that the composition of services
+       somehow differs from traditional programming.
+
+         -> [BPEL is equally important for SOA as SQL is for databases.]
+     Web Services
+       From the technological perspective, Web Services are a distributed architecture.
+       The distributed computing paradigm started with DCE (Distributed Computing Environment),
+       RPC (Remote Procedure Call), and messaging systems, (products such as MQSeries, MSMQ, and so on).
+
+       How Web Services differ from their predecessors
+       Web Services are similar to their predecessors, but also differ from them in several aspects.
+       They are the first technology that fulfills the promise of universal interoperability between
+       applications running on disparate platforms.
+       The fundamental specifications that Web Services are based on are SOAP, WSDL, and UDDI which
+       are XML based, making Web Services protocol messages and descriptions human readable.
+
+       Web Services technology stack
+        In addition to several advantages, Web Services also have a couple of disadvantages.
+        Performance, and do not offer infrastructure and Quality of Service (QoS) features.
+        Web Services fill this important gap by introducing additional specifications:
+         • WS-Security
+         • WS-Coordination
+         • Transactions specifications (WS-AtomicTransaction and WS-BusinessActivity)
+         • WS-ReliableMessaging
+         • WS-Addressing
+         • WS-Inspection
+         • WS-Policy
+         • WS-Eventing
+     Enterprise Service Bus
+      While Web Services are an appropriate technology for SOA, some other aspects
+      need to be considered, such as:
+       •Usually enterprises already have one or more middleware products, such as messaging systems and ORBs
+        Therefore, there is a need to integrate different middleware products, and provide interoperability with Web Services.
+       •We need ways to connect, mediate, manage, and control the services and particularly the communication between them.
+       •Enterprise information systems require dependable, robust, and secure service infrastructure.
+      The ESB provides a robust, dependable, secure, and scalable communication
+      infrastructure between services. It also provides control over the communication
+      and control over the use of services, including:
+       • Message interception capabilities
+       • Routing capabilities
+       • Transformation capabilities
+       • Control over the deployment, usage, and maintenance of services:
+
+       ESB Features
+     Registry and repository
+     Human task support and identity management
+      Business processes often involve human interaction. SOA, therefore, has to provides support for human tasks.
+      Human tasks are sometimes called user interactions.
+       -> If the situation is more complex, a business process might require several users to make approvals, either in sequence or in parallel.
+          It's better to connect tasks to roles and then associate those roles with individual users. This gives business processes greater flexibility,
+          To be able to do this, we need to have an identity management system, where users, roles, and groups are managed.
+          This can be a simple LDAP or a more sophisticated system.
+     Process Monitoring or Business Activity Monitoring
+     Business Rules Management Systems (BRMS) or Rule Engine
+     Adatpters
+     Service Component Architecture
+     SOA governance
+   Understanding BPEL
+    The general adoption of business process automation solutions requires a standard foundation and a specialized language
+    The main goal of BPEL is to standardize the process of automation between Web Services.
+     -> [With BPEL we can define business processes that make use of services and business processes that externalize their functionality as services.]
+
+     BPEL features
+      With BPEL we can define simple and complex business processes. To a certain
+      extent, BPEL is similar to traditional programming languages. It offers constructs,
+      such as loops, branches, variables, assignments, and so on that allow us to define
+      business processes in an algorithmic way.
+      The most important BPEL constructs are related to the invocation of services.
+      BPEL makes it easy to invoke operations of services either synchronously or
+      asynchronously. We can invoke operations either in sequence or in parallel. We can
+      also wait for callbacks.
+     Orchestration and choreography
+      Depending on the requirements, the composition of services can address private or public processes.
+      . In orchestration, a central process takes control over the involved services and coordinates the
+       execution of different operations on the services involved in the operation.
+      . Choreography, on the other hand, does not rely on a central coordinator. Rather,
+       each service involved in the choreography knows exactly when to execute its
+       operations and whom to interact with.
+     Executable and abstract processes
+      With BPEL, we can describe business processes in two distinct ways:
+      •EXECUTABLE BUSINESS PROCESS: Follow the orchestration paradigm and we can specify the exact details of business processes.
+      •ABSTRACT BUSINESS PROCESS: Follow the choreography paradigm and we can specify the public message exchange between parties only.
+   Relation of BPEL to other languages
+    BPEL is not the only language for business process execution.
+    Let us overview the relation of BPEL to others languages.
+    .ORCHESTRATION LANGUAGES:
+     -XLANG
+     -WSFL
+     -BPML
+     -BPSS
+     -YAWL
+    .CHOREOGRAPHY LANGUAGE:
+     -WSCL (Web Services Conversation Language)
+     -WSCI (Web Services Choreography Interface)
+     -WS-CDL (Web Services Choreography Description Language)
+  Chapter2. Service Composition with BPEL
+    OVERVIEW
+     • Discuss service composition with BPEL
+     • Explain how business processes are defined in BPEL
+     • Get familiar with core concepts including:
+       °The structure of BPEL process definitions
+       °Invoking services
+       °Synchronous and asynchronous processes
+       °Partner links
+       °The role of WSDL
+       °Important activities and other constructs
+       °Define an example BPEL process
+
+      BPEL uses an XML-based vocabulary that allows us to specify and describe business
+      processes. BPEL is a programming language. Some development environments as JDeveloper/Eclipse
+      usually provide a visual editor/source view.
+      With BPEL, you can describe business processes in two distinct ways:
+       • Executable business processes
+       • Abstract business processes
+
+       When we describe a business process in BPEL, we actually define a new service that is a
+       composition of existing services. To invoke that business process, we must invoke the resulting
+       composite service.
+       PEL introduces WSDL extensions, which enable us to accurately specify relations (partner links)
+       between several services in the business process.
+       Anyone developing BPEL processes requires a good understanding of WSDL
+         -> Any BPEL process specifies the exact order in which participating services should
+       be invoked. This can be done sequentially or in parallel. With BPEL, we can express
+       conditional behavior; We can also construct loops, declare variables, copy, assign
+       values, define fault handlers, and so on.
+       Using modelint notation, BPMN (Business Process Modeling Notation) or UML (Unified Modeling Language)
+       it is sometimes useful to express it because business processes are essentially graphs of activities.
+    +CORE CONCEPTS
+     A BPEL process consists of steps. Each step is called an activity.
+     BPEL supports basic and structured activities, wich perform task as listed below:
+      • Invoking other Web Services, using <invoke>
+      • Waiting for the client to invoke the business process by sending a message, using <receive> (receiving a request)
+      • Generating a response for synchronous operations, using <reply>
+      • Manipulating data variables, using <assign>
+      • Indicating faults and exceptions, using <throw>
+      • Waiting for some time, using <wait>
+      • Terminating the entire process, using <exit>
+     We can then combine these and other basic activities and define complex flows that
+     specify exactly the steps of a business process:
+      • Sequence (<sequence>), for defining a set of activities that will be invoked in an ordered sequence
+      • Flow (<flow>), for defining a set of activities that will be invoked in parallel
+      • Conditional construct (<if>), for implementing branches
+      • While, repeat, and for each (<while>, <repeatUntil>, <forEach>), for defining loops
+      • The ability to select one of a number of alternative paths, using <pick>
+     Each BPEL process will also define partner links, using <partnerLinks>, and declare
+     variables, using <variables>.
+      -> Because each BPEL process is a service, each BPEL process needs a WSDL document too.
+
+      -INVOKING SERVICES
+       A BPEL process definition is written as an XML document using the <process>
+       root element. Within the <process> element, a BPEL process will usually have the
+       top-level <sequence> element. Within the sequence, the process will first wait for
+       the incoming message to start the process. This wait is modeled with the <receive>
+       construct. Then the process will invoke the related services, using the <invoke>
+       construct. Such invocations can be done sequentially or in parallel. If we want to
+       make them sequential, we simply write an <invoke> for each invocation and the
+       services will be invoked in that order.
+        //BPEL Example...
+         <process ...>
+          <sequence>
+
+           <!-- Wait for the incoming request to start the process -->
+           <receive ... />
+
+           <!-- Invoke a set of related services, one by one -->
+           <invoke ... />
+           <invoke ... />
+           <invoke ... />
+            ...
+          </sequence>
+         </process>
+        **To invoke services concurrently, we can use the <flow> construct.
+        **We can also combine and nest the <sequence> and <flow> constructs, which allows us to define several sequences executing concurrently.
+      -INVOKING ASYNCHRONOUS SERVICES
+        We just explained how to invoke synchronous service operations.
+        There are actually two major types of service operations:
+        • Synchronous request/reply service operations -> We send a request and wait for the reply.
+        • Asynchronous service operations -> Usually, such operations perform processing that requires
+          a longer time to finish. If such operations require that results are sent back to the client,
+          they usually perform callbacks. Callbacks usually need to be related to original requests.
+          We call this message correlation. Message correlation can be achieved automatically with WS-Addressing,
+          or with BPEL correlation sets.
+
+        -> With asynchronous operations, <invoke> only takes care of the first part
+           To receive a result (if needed) we use <receive>, where the business process waits
+           for the incoming message. We could do other processing instead of just waiting for the reply.
+           //Example asynchronous
+            <process ...>
+              <sequence>
+                <!-- Wait for the incoming request to start the process -->
+                <receive ... />
+                <!-- Invoke an asynchronous operation -->
+                <invoke ... />
+                <!-- Do something else... -->
+                <!-- Wait for the callback -->
+                <receive ... />
+              </sequence>
+            </process>
+            **We can use asynchronous <invoke>/<receive> pairs within <flows> to perform several concurrent invocations.
+      -SYNCHRONOUS/ASYNCHRONOUS BUSINESS PROCESSES
+        We have already mentioned that the BPEL-modeled business process is exposed as a
+        service. The BPEL process itself can be synchronous or asynchronous. A synchronous
+        BPEL process returns a response to the client immediately after processing and the
+        client is blocked for the whole duration of the BPEL process execution.
+        An asynchronous BPEL process, on the other hand, does not block the client.
+        To return a result to the client, an asynchronous process uses a callback, similar
+        to any other service. However, it is not required that such a BPEL process returns
+        a response.
+        -> How do synchronous and asynchronous processes differ in the BPEL specification?
+          >We know that both first wait for the initial message, using a <receive>.
+          >Both also invoke other services, either synchronously or asynchronously.
+          +A synchronous BPEL process will return a result after the process has completed.
+           Therefore, we use a <reply> construct at the end of the process.
+           //SynchronousBP
+            <process ...>
+              <sequence>
+                <!-- Wait for the incoming request to start the process -->
+                <receive ... />
+                <!-- Invoke a set of related services -->
+                ...
+                <!-- Return a synchronous reply to the caller (client) -->
+                <reply ... />
+              </sequence>
+            </process>
+          +An asynchronous BPEL process does not use the <reply> clause.
+           If such a process has to send a reply to the client, it uses the <invoke> clause
+           to invoke the callback operation on the client's port type.
+           //AsynchronousBP
+            <process ...>
+              <sequence>
+                <!-- Wait for the incoming request to start the process -->
+                <receive ... />
+                <!-- Invoke a set of related services -->
+                <!-- Invoke a callback on the client (if needed) -->
+                <invoke ... />
+              </sequence>
+            </process>

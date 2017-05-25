@@ -1,0 +1,105 @@
+https://docs.oracle.com/middleware/12212/lcm/SOAQS/toc.htm#SOAQS -> FM Installing Oracle SOA Suite and Business Process Management Suite Quick Start
+https://docs.oracle.com/middleware/12212/jdev/user-guide/toc.htm -> Fusion Middleware Developing Applications with Oracle JDeveloper
+
+OSB_QuickInstallation
+  + Installing Oracle SOA Suite Quick Start for Developers
+   https://docs.oracle.com/middleware/12212/lcm/SOAQS/toc.htm#SOAQS
+    Task1. Download the Installers & unzip
+      Opt1. Download from Oracle Technology Network(OTN): -> Oracle SOA Suite 12.2.1.2.0
+            http://www.oracle.com/technetwork/middleware/soasuite/downloads/index.html
+      Opt2. Oracle Delivery Cloud: Search for Oracle SOA Suite 12.2.1.2.0
+            https://edelivery.oracle.com/osdc/faces/Home.jspx
+        -> Unzip fmw_12.2.1.0.0_soaqs_Disk1_1of2.zip and fmw_12.2.1.2.0_soaqs_Disk1_2of2.zip
+           to folder C:\Oracle\SOASuite12.2.1
+    Task2. Installing the JDK 1.8.0_51-> Setting the JAVA_HOME
+      Search for cmd.exe in the Start menu. Right-click the cmd.exe and select Run as Administrator.
+      SET JAVA_HOME="C:\Oracle\java\jdk1.8.0_131"
+    Task3. Launch the installation wizard:
+      Search for cmd.exe in the Start menu. Right-click the cmd.exe and select Run as Administrator.
+       > cd C:\Oracle\SOASuite12.2.1.2.0
+       > %JAVA_HOME%\bin\java.exe -jar fmw_12.2.1.2.0_soa_quickstart.jar
+          -> C:\Oracle\Middleware\SOASuite
+  + Preparing to Launch the Integrated WebLogic Server
+    -Setting the JDEV_USER_DIR Variable
+      If you do not define JDEV_USER_DIR, your domain home and application home will be created at two different locations:
+      On a Windows host:
+      the default domain home will be created at %USERPROFILE%\AppData\Roaming\JDeveloper\system12.1.3.x.x.x.xxxx\DefaultDomain.
+      Your default application home will be created at C:\JDeveloper\mywork.
+    -Setting ORACLE_HOME
+      SET ORACLE_HOME=C:\Oracle\Middleware\Oracle_Home
+    -Checking entropy for Oracle Linux
+  + Configuring a Standalone Domain
+    Task1, Starting the Configuration Wizard
+      cd %ORACLE_HOME%\oracle_common\common\bin
+      set QS_TEMPLATES=%ORACLE_HOME%\soa\common\templates\wls\oracle.soa_template.jar, %ORACLE_HOME%\osb\common\templates\wls\oracle.osb_template.jar
+      qs_config.cmd
+    Task 2, "Navigating the Configuration Wizard Screens"
+      Administrative Account
+       Name: weblogic
+       Password: Abcd#1234
+      Advanced Configuration
+       Domain Location: C:\Oracle\Middleware\Oracle_Home\user_projects\domains\standalone_domain
+       Application Location: C:\Oracle\Middleware\Oracle_Home\user_projects\applications\standalone_domain
+        =>Replace base_domain with standalone_domain
+       Administration Server Listen Address: All Local Address
+       Administration Server Listen Port: 7001
+       SSL Listen Port: 7002
+      -> Click on create
+
+      Configuration Details
+       Domain Name: standalone_domain
+       Domain Location: C:\Oracle\Middleware\Oracle_Home\user_projects\domains\standalone_domain
+       Application Location: C:\Oracle\Middleware\Oracle_Home\user_projects\applications\standalone_domain
+       Status: Successful
+       Admin Server URL: http://Gsgpc19:7001/console
+    Task 3, "Starting the Administration Sever"
+      set DOMAIN_HOME=%ORACLE_HOME%\user_projects\domains\standalone_domain
+      cd %DOMAIN_HOME%\bin
+      startWebLogic.cmd
+        -> SOA Platform is running and accepting requests
+    Task 4, "Starting the Application Server Connection Wizard"
+      Start Oracle JDeveloper
+       Select Window> Application Server (Ctrl+Shift+G)
+        -> This will open the Application Server Navigator in the left-hand pane.
+        Right-click on Application Server> New Application Serve
+    Task 5, "Navigating the Create Application Server Connection Wizard Screens"
+      Usage: Select Standalone Server.
+      Name and Type: StandAloneWebLogicServer
+       Connection Type: Leave WebLogic 12.x selected as the 
+      Authentication
+       User Name: Weblogic
+       Password: Abcd#1234
+
+    Task 6, "Verifying Your Connection"
+  + Deinstalling Oracle Quick Start
+     >C:\_ cd C:\Oracle\Middleware\SOASuite\oui\bin
+     >C:\_ deinstall.cmd
+
+OSB_CookbookInstallation
+  + Download Files
+   1. Create c:\Oracle\stageSOA
+   2. Go to http://www.oracle.com/technetwork/middleware/service-bus/downloads/index.html
+      Download: Oracle WebLogic Server 11gR1 (10.3.4) + Coherence + OEPE – Package Installer
+                Oracle Service Bus
+   3. Go to: http://www.oracle.com/technetwork/middleware/soasuite/downloads/index.html
+      Download: Repository Creation Utility 11.1.1.4.0
+                JDeveloper 11.1.1.4.0
+                SOA Suite 11.1.1.4.0 Part 1 of 2
+   4. Download an Oracle XE Universal
+   5. Download soapUI by going to
+  + Configure Oracle XE Universal Database
+    - Set the processes parameter to >= 200 as follows.
+      -> The shutdown command can take a few minutes. Sometimes the shutdown/startup
+      command fails. In that case, simply restart the XE services in the Control Panel |
+      Administrative Tools | Services window after setting your parameters.
+      1. Run SQL Plus by clicking on the Windows Start menu and selecting 'Run SQL Command Line'
+      2. Enter the following commands:
+        SQL> connect sys/oracle@xe as sysdba
+        SQL> show parameter session
+        SQL> show parameter processes
+        SQL> ALTER SYSTEM RESET SESSIONS SCOPE=spfile SID=’*’;
+        SQL> ALTER SYSTEM SET PROCESSES=200 SCOPE=spfile;
+        SQL> shutdown immediate
+        SQL> startup
+        SQL> show parameter session
+        SQL> show parameter processes
