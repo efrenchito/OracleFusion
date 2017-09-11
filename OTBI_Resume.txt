@@ -1,0 +1,304 @@
+@OTBI Links
+@OTBI Components
+@OTBI Administrators Guide
+@OTBI High Level Training
+@OTBI Sample Dashboards and Reports
+@How to assign roles for BI reporting
+***"FSCM_OLTP"."Connection Pool"
+
+@OTBI Links
+Data Modeling Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/middleware/12211/bip/BIPDM/BIPDM.pdf
+User's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/middleware/12212/bip/BIPUG/BIPUG.pdf
+Administrator's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/cd/E29542_01/bi.1111/e22255/toc.htm
+Developer's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/cd/E29542_01/bi.1111/e22259/toc.htm
+Report Designer's Guide for Oracle Business Intelligence -> https://docs.oracle.com/middleware/12211/bip/BIPRD/BIPRD.pdf
+Database SQL Tuning Guide -> https://docs.oracle.com/database/121/TGSQL/toc.htm
+Oracle BI Publisher Training -> http://www.oracle.com/technetwork/middleware/bi-publisher/learnmore/index.html
+BI Publisher Center Note -> ID 1338762.1
+
+
+@How to assign roles for BI reporting in Oracle Fusion Application
+  Navigator
+    Tools>Setup and Maintenance
+     [All Tasks]
+      Search: Name &manage%duties%
+
+@OTBI Components
+  (http://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/otbi_ent/v05/lesson3.pdf)
+  OTBI Enterprise for HCM Cloud Service Architecture Components
+  • Source System: -> (OLTP) dabases hold the source data that is loaded into the OB Analytics Warehouse (OBAW) via (ETL) processing.
+  • Oracle Business Intelligence Enterprise Edition: Business Intelligence platform that is used to access and present data in easy to understand formats
+  • Oracle Business Analytics Warehouse is a prebuilt data warehouse data model that is designed to support the analysis requirements of 
+  OTBI Enterprise. It includes:
+   - A universal data warehouse design that enables you to integrate data from different source systems
+   - Multiple instance support that enables you to use one data warehouse deployment for multiple source system instances
+   - Conformed dimensions that enables you to view the data from different subject areas
+  • Oracle BI Applications Configuration Manager is a web application that you use to set up and maintain an OTBI Enterprise
+  • Functional Setup Manager r is a web application that works in conjunction with Configuration Manager to enable you to:
+   – Manage and perform functional configuration tasks for offerings
+   – Deploy an offering and its functional areas
+   – Manage a list of configuration tasks, which you can assign to different functional developers
+   – Monitor task implementation status
+  • Oracle Data Integrator
+  • Repositories
+ 
+ 
+@OTBI Administrators Guide
+  (https://docs.oracle.com/cloud/farel8/common/OATBI/introduction.htm#OATBI106)
+ 
+@OTBI High Level Training
+  Part 1 : (https://www.youtube.com/watch?v=tpaObds_M_k)
+  Create an Analysis
+    Add an View Selector
+      Edit a Pivot View: adding a Column/Total Rows 
+      Edit a Graph View: 
+        Graph
+          Adding Dimension as Bar Row
+          Adding Dimension as a Section -> Display as a Slider
+        Style
+          Color
+
+@OTBI Sample Dashboards and Reports
+ +Part1. How to Install and Configure the Content (https://www.youtube.com/watch?v=MlN-A5dNT28)
+   -Install the Content
+   -Structure the Content
+   -Configure the Content
+   
+  To be able to use the pack of Sample <<OTBI Dashboards and Reports>>, you need to be on Customer Connect.
+  You need to be logged to Fusion as a User who has access to be able to unarchive BI Content into the Web Catalog.
+  
+  <<Install the Content>>
+  Step1. Unarchive 'Sample Content v1.catalog' & 'Sample OTBI Dashboards v1.catalog'
+  1.1.Highlight the folder Shared Folders>Custom
+       Under tasks click the Unarchive option
+         -> open 'Sample Content v1.catalog' and click ok.
+   1.2.Highlight the folder Shared Folders>Custom>Dashboards
+     *If doesn't exist show it through 'Show Hidden Items' or creat it
+       Under tasks click the Unarchive option
+         -> open 'Sample OTBI Dashboards v1.catalog'
+  
+  <<Structure the Content>>
+  
+  <<Configure the Content>>
+    Links -> If you report drill down to details, probably you must to update the links, with the first part of your URL instance.
+    "firstPartOfYourURLInstance" -> ecsk-test.bi.la1.oraclecloud.com
+      
+      Edit Dashboard> Edit Analysis 
+        -> Advanced Tab> Analysis XML
+        Find & Replace xxx.com with "firstPartOfYourURLInstance"
+        
+ +Part2. Tips and Tricks on How the Data is Displayed
+  <<Dashboard Layout and Prompts>>
+    Columns>Section>Prompts
+    Dashboard Properties - Dashboard Report Links
+    
+  <<Chart and Text Display>>
+  <<Drill to detail and use of Multiple Views>>
+
+  ...http://www.oracle.com/webfolder/technetwork/tutorials/obe/Taleo_Cloud/13B/ps.htm
+@Presentation OTBI VivaColombia CristianBetancour
+  AGENDA
+  1.Acerca de OTBI - Conceptos básicos
+  2.Oracle Fusion Applications: Informes y analíticas
+  3.Accediendo a Oracle BI Catalog
+  4.Otras consideraciones con OTBI.
+  5.Preguntas y pasos a seguir
+
+  >>>1.Acerca de OTBI - Conceptos básicos
+  ¿Qué es Inteligencia de negocios?
+  > Es el análisis de los datos de la empresa para ayudar a la toma de decisiones, comprendiendo el estado actual de la empresa lo que permite la anticipación de eventos futuros.
+
+  > La inteligencia de Negocios se basa en un software que analiza datos de un sistema productvo para mostrarlos de una manera global y más entendible.
+  > Dichos datos son agrupados en lo que se conoce como Áreas de Información o Áreas temáticas
+
+  ¿Qué es OTBI?
+   1.Integra datos para análisis y reportes:
+     >Integración pre-construida de datos provenientes de Fusion, organizados en vistas analíticas en tiempo REAL.
+
+    2.Provee un modelo analítico amigable con información corporativa y métricas:
+     > Cálculos, métricas e indicadores basados en mejores prácticas
+     > Acceso, uso y análisis simplificado para usuarios de negocio
+
+    3.Posibilidad de crear Tableros de Control personalizados
+    > Utilización de las métricas y atributos exportados de Fusion para crear reportes
+
+
+  Oracle Transactional Business Intelligence
+    +Perspectiva Funcional
+     - Análisis -> Ej: OTBI
+     - Informes -> Ej: BIP, FRC
+     - Inspeccionar y monitorear -> Monitor de Cuentas
+     - Predictivo -> Ej. Oracle Fusion Workforce Predictions
+
+    +Perspectiva de datos
+     - Base de datos de Fusion Applications.
+     - Saldos en Essbase (Financial Reporting Center, Monitoreo de Cuentas -> Análisis de Gastos por centro de Costos)
+     - Otros orígenes (Excel. XML, etc.)
+
+    +Perspectiva de dispositivos
+     - Móviles.
+     - Escritorio
+
+    +Perspectiva Conjunto de Habilidades
+    Profesional de TI
+     - Profesional BI: Crear análisis y reportes para otros
+     - Administrador BI
+
+    Línea de negocios
+     -Usuario de negocio: Crear análisis para su propio uso y el de sus colegas.
+     -Usuario final: Consume los reportes, análisis interactivos y monitoreo.
+
+    Propuesta de valor
+    -Inteligencia de negocios en tiempo real:
+      .Sin latencia
+      .Sin almacenamiento de datos persistentes (que no sea OLTP)
+      .Análisis ad hoc usando plataforma OBIEE
+    -Alta interactividad
+      .Utiliza las mejores caracteristicas de OBIEE como alertas, marcos de acción, etc.
+      .Contexto pasado entre Fusion Applications y BI
+    -Facilidad de uso
+      .Una amplia librearia de contenido desplegado.
+      .Estructura de carpetas similar a Fusion Applications
+      .Medidas calculadas preconstruidas
+      .Configuración minima
+    -Modelo semántico consistente
+      .Arboles/jerarquias propagadas a BI desde Fusion App
+      .Definición unificada de entidades clave (Cliente, factura, Fecha, Cuenta. etc...)
+      .Inicia con dimensiones comunes.
+    -Integracion con Fusion Applications
+      .Inicio de sesiòn con Single Sign On
+      .Apalancamiento con la seguridad de la aplicaciòn
+      .Etiquetas de columna propagadas al informe
+      .Contenido embebido
+    -Extendible
+      .Arquitectura diseñada con apoyo sin problemas de conceptos de Fusion Applications (flex fields, arboles, seguridad, soporte multilenguaje).
+  <<<
+
+  >>>2.Oracle Fusion Applications: Informes y analíticas
+  +Informes y analiticas
+    -Saldos (Essbase)
+      >Gestion de Informes, Tablera de calidad, Informes en vivo, distr¡ibuidos e instantáneas, gráficos y tablas, múltiples opciones de salida  => Financial Reporting
+       > Analisis ad hoc, tablas pivote, gráficos y tablas, MS Offica 
+           => SmartView Inspector y Monitor de Cuentas (OTBI, BIP)
+    -Datos Transaccionales (Fusion DB)
+      >Análisis ad hoc, tablerod de control, tablas/Gráficos, salida flexible, acceso a travès de Essbase, comùn en todas las aplicaciones de Fusion.
+
+  Oracle BI Publisher Catalog
+    + Es el repositorio donde todos los objetos de inteligencia de negocio incluyendo analíticas, reportes, libros informativos, y agentes, son almacenados. El catálogo contiene carpetas separadas para objetos de BI personales, compartidos y personalizados.
+
+  Oracle BI Publisher Catalog - Estructura de Carpetas
+    La estructura de carpetas se le conoce como Catalogo y es importante conocerlo para saber donde se almacenarán los reportes que se almacenarán los reportes que serán construidos.
+    + Mis carpetas: Solo el usuario dueño de los objetos de BI dentro de esta carpeta puede acceder a ellos y visualizarlos
+    + Carpetas compartidas: Todos los usuarios accedena  la estructura de estas carpetas.
+    + Carpeta Personalizar: Con los roles apopiados, se puede guardar reportes personalziados, dentro de la estructura de subcarpetas relacionadas con el producto:
+      - Mientras las actualizaciones pueden cambiar los reportes y análisis predefinidos, fuera de la carpeta Personalizar, usted asegura que las copias personalizadas de estos objetos no sean afectados en el momento de una actualización. 
+       - Puede fácilmente encontrar objetos personalizados
+       - Puede editar objetos en la carpeta Personalizar sin comprometer la seguridad de los objetos originales
+
+  Oracle BI Publisher Catalog - Objetos de BI
+    - Análisis: Grafico o table que muestra conjuntos especificos de datos que ayudan en la toma de decisiones. Basado en vistas analíticas.
+    - Tablero de Control: Una o más páginas que contienen múltiples análisis.
+
+    + Reporte: Salida de un conjunto de datos en un formato predefinido y optimizado para impresión. Tiene los siguients components:
+     - Modelo de datos: Define el origen, estructura de datos y parámetros del reporte. Muchos reportes pueden tener el mismo modelo de datos; pero cada reporte tiene un único modelo de datos.
+     -Propiedades: Especifica formateo y otras configuraciones del reporte.
+     - Plantilla: Define la presentación, formato y visualización de los datos. Un reporte puede tener varias plantillas. Hay diferentes tipos de plantillas:
+        .XPT: Editor de plantilla de la aplicación
+        .RTF: Microsoft Word
+        .PDF: Adobe Acrobat Reader.
+        .Excel. Microsoft Excel.
+        eText: Microsoft Word
+
+  Oracle BI Publisher Catalog - BI Answer Report Authoring Tool
+    +Con BI Answers, usted puede:
+     - Formatear columnas y datos
+     - Configurar formatos condicionales
+     -Configurar gráficos (pantallas, tablas pivote, vistas de subtotal)
+     -Configurar interacciones del reporte (enlaces de acción, llamados a web service, etc...)
+     ...
+
+  Oracle BI Publisher Catalog - Bi Publisher Report Authoring and Publishing Tool
+    Crear reportes con un formato fijo usando multiples plantillas
+    Crear reportes desde un modelo de datos que combine multiples origenes de datos
+    Crear reportes directamente desde las areas tematicas de BI
+    Reportes con archivos de datos CSV locales
+    Ver reports en modo interactivo
+    Programar reports y enviar a correo electronico, impresora, fax, FTP
+    Archivar salidas de reportes
+     Desplegar reportes... 
+  <<<
+
+
+  Oracle Fusion Applications: Aréas temáticas y tableros de control
+
+   +Áreas temáticas
+     Las áreas temáticas son un subconjunto virtual de información   
+    agrupada bajo algún criterio específico relacionado con el negocio.
+    Un área temática combina en una misma estructura de carpetas la información que el usuario pueda seleccionar y combinar
+
+   De igual forma existen cientes de áreas temáticas relacionadas con diferentes áreas de la empresa y con diferentes flujos de negocio.
+
+    Es importante destacar que no es comparable la organización de los datos dentro de un área temática con lo que se puede ver en Fusion Cloud.
+
+    +Tableros de Control
+    >Los tableros de control son páginas que permiten insertar diferentes tipos de objetos dentro de ellas (reportes, imagenes, links, etc) esto son el fin de mantener organizados los análisis creados.
+
+  Oracle Fusion Applications: Acciones y agentes
+    > Las Acciones son instrucciones que permiten llamar a diferentes contenidos, como pueden ser:
+     - Contenidos de BI
+     - Paginas Web
+     - Web Services
+     - Programas Java, etc
+
+    > Las acciones creadas pueden incluirse dentro de los análisis..
+
+    +Agentes:
+      > Los Agentes son procesos que se pueden programar para ejecutarse automáticamente al ocurrir algún evento predeterminado.
+     > Estos procesos pueden ejecutar acciones tales como enviar un e-mail con un reporte adjunto con un mensaje de texto
+     > Se pueden definir destinatarios, prioridades, condiciones, programación, etc...
+
+   Oracle Fusion Applications: Financial Reporting Center
+  Proporciona la funcionalidad para informar Saldos de Oracle Fusion General Ledger. Este provee seguridad, acceso de autoservicio para entregar información contable para su uso en tiempo real.
+
+  Se puede diseñar formatos de reportes tradicionales tales como hojas de balance, estado de ganancias y pérdidas y reportes de flujo de efectivo. También diseñar formatos no tradicionales para datos financieros o análiticos que incluyen texto o gráficos.
+
+
+
+
+  Oracle Fusion Applications: Financial Reporting Center
+     Oracle Essbase es un servidor OLAP que provee un ambiente para desplegar aplicaciones pre-empaquetadas o desarrollar aplicaciones que gestionen la ejecución y análisis empresariales personalizados.
+
+  Essbase se va alimentando de información cuando se procesa contabilidad de diferentes modulos a GL. y cuando los balances son ...
+
+  Los componentes:
+    Financial Reporting: Usuarios y analistas de finanzas acceden a reportes y libros en vivo o publicar reportes y libros resumidos dede lotes programados previamente en una variedad de formatos. Otra funcionalidad incluye las siguientes capacidades o
+     -Desplegar a travéa de niveles padre a otros niveles padre
+     -Desplegar a balances detallados, lineas de asiento y transacciones de libro secundario.
+
+  + Oracle Hyperion Smart View. Analistas financieros para ver,
+    importar, manipular, distribuir y compartir datos desde los
+    balances Oracle Fusion General Ledger a Microsoft Excel
+  +Workspace: Administradores de reportes: o Crear, abrir, guardar y borrar carpetas.
+    .Almacenar objetos de reportes, reportes e informes resumidos.
+  +Oracle Hyperiosn Financial Reporting Studio. Autores de reportes que usan plantillas de informes gráficos orientados a objetos con objetos de informes, tales como cajas de texto, celdas, imátenes y gráficos para el diseño de informes.
+
+
+  >>>
+  3.Accediendo a Oracle BI Catalog
+  <<<
+
+  >>>
+  4.Otras consideraciones con OTBI.
+    Integración con Fusion Flex Fields
+     -Soporta extensión de Flexfield descriptivos y claves
+    Embebiendo OTBI en Fusion Applications
+     -Embeber informes/paneles de control
+    Seguridad en OTBI
+     + La seguridad en OTBI se divide en tres grandes grupos:
+      - La seguridad de accessos no se configura en OTBI, 
+      - La seguridad de datos, qué datos puede ver una persona y que dato no puede ver de acuerdo a los roles que tenga asignado.
+      - La seguridad de datos se refiere al acceso a los reportes, estructuras de carpetas, filtros, etc y a las acciones que se pueden realizar
+
+    -> Configurar los permisos:
+     - Modificar , Abrir, Control total, sin acceso, trazado
+     - Se aplican a: Usuario, Roles de aplicacion, Grupos de usuario

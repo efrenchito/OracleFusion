@@ -1,0 +1,501 @@
+Data Modeling Guide for Oracle Business Intelligence Publisher 12.2.1.1.0
+(https://docs.oracle.com/middleware/12211/bip/BIPDM/BIPDM.pdf)
+
+
+New Features for Data Model Designers
+@1 Using the Data Model Editor... 13
+@2 Creating Data Sets... 23
+@3 Structuring Data... 79
+@4 Adding Parameters and Lists of Values... 117
+@5 Adding Event Triggers... 135
+@6 Adding Flexfields... 139
+@7 Adding Bursting Definitions... 149
+@8 Adding Custom Metadata for Oracle WebCenter Content Server... 163
+@9 Performance Best Practices... 168
+
+
+@1 Using the Data Model Editor
+ What Is a Data Model?
+  A data model is an object that contains a set of instructions for BI Publisher to retrieve and structure data for a report. 
+  Data models reside as separate objects in the catalog. A data model can also be complex, including parameters, triggers, and
+  bursting definitions as well as multiple data sets.
+  
+ Components of a Data Model
+  • Data Set
+  • Event triggers:  The data model editor supports before data and after data triggers as well as schedule triggers.
+    Before data and after data triggers consist of a call to execute a set of functions defined in a PL/SQL package stored 
+    in an Oracle database.
+  • Flexfields
+  • Lists of values
+  • Parameters
+  • Bursting Definitions: Bursting is a process of splitting data into blocks, generating documents for each data block, 
+    and delivering the documents to one or more destinations.
+  • Custom Metadata (for Web Content Servers)
+  
+  Features of the Data Model Editor
+    Use the data model editor to combine data from multiple data sets from different data sources (SQL, Web Services, Files, ...)
+    • Link data • Aggregate data • Transform data • Create calculations 
+    
+    About the Data Source Options
+     BI Publisher supports a variety of DataSource types for creating data sets, which can be categorized into three general types:
+     + SQL Queries against BI Publisher, Oracle Database and Other supported Databases:
+       • SQL queries
+       • Multidimensional against an OLAP
+       • Queries against your LDAP
+       • Microsoft Excel spreadsheet
+       • XML files
+       • CSV 
+     + For the second type only a subset of the full range of data model editor functions is supported:
+       • Oracle BI Analyses
+       • View object's created with ADF
+     + For the third type, You cannot apply additional modifications in the data model editor
+       • HTTP XML feeds
+       • Web services
+
+  Process Overview for Creating a Data Model
+   Launch the data model editor.
+   Set properties for the data model. (Optional)
+   Create the data sets for the data model.
+   Define the data output structure. (Optional)
+   Define the parameters to pass to the query, and define lists of values for users to select parameter values. (Optional)
+   Define Event Triggers. (Optional)
+   Define Flexfields. [Oracle Applications Only.(Optional)]
+   Test your data model and add sample data.
+   Add a bursting definition. (Optional) 
+   Map Custom Metadata for documents to be delivered to Web Content Servers (Optional)
+
+
+@2 Creating Data Sets
+ Overview of Creating Data Sets
+  1.On the component pane of the data model editor, click New Data Set and select your source data set type.
+  2.Complete the required fields.
+
+ Editing an Existing Data Set
+  1. On the component pane of the data model editor click Data Sets. All data sets for this data model display in the working pane.
+  2. Click the data set that you want to edit.
+  3. Click Edit Selected Data Set. The dialog for the data set opens
+  4. Make changes to the data set and click OK.
+  5. Save the data model.
+  6. Test your edited data model and add new sample data. 
+  
+ -> See the corresponding section:
+    • Creating Data Sets Using SQL Queries
+    • Creating a Data Set Using a MDX Query Against an OLAP Data Source
+    • Creating a Data Set Using an Oracle BI Analysis
+    • Creating a Data Set Using a View Object
+    • Creating a Data Set Using a Web Service
+    • Creating a Data Set Using an LDAP Query
+    • Creating a Data Set Using a XML File
+    • Creating a Data Set Using a Microsoft Excel File
+    • Creating a Data Set Using a CSV File
+    • Creating a Data Set from an HTTP XML Feed
+    • Using Data Stored as a Character Large Object (CLOB) in a Data Model
+
+ Creating Data Sets Using SQL Queries
+  These topics explain how to create data sets using SQL queries.
+   • Entering SQL Queries
+   • Creating Non-Standard SQL Data Sets
+   • Using the SQL Query Builder
+   • Adding a Bind Variable to a Query
+   • Adding Lexical References to SQL Queries
+   • Defining SQL Queries Against the Oracle BI Server
+ 
+   + Entering SQL Queries
+     1. Click New Data Set and then click SQL Query.
+     2. Enter a name for the data set.
+     3. The data source defaults to the default data source that you selected on the Properties page.
+     4. The SQL type defaults to Standard SQL used for normal SELECT statements interpreted to understand database schema.
+     5. Enter the SQL query or click Query Builder to launch the Query Builder page
+      5.1. If you are using Flexfields, bind variables, or other special processing in your query, 
+           edit the SQL returned by the Query Builder to include the required statements.
+     6. After entering the query, click OK to save.
+
+   + Creating Non-Standard SQL Data Sets
+     In addition to creating data sets using basic SQL commands, you can create data sets using more complex commands.
+     
+     • Procedure Call  -> Use this query type to call a database procedure.
+     • Non-standard SQL-> Use this query type to issue SQL statements that can include the following:
+       - Cursor statements that return nested results sets
+       - Functions returning REF cursors
+       - Anonymous blocks/Stored procedures
+       - Conditional queries can be executed if you use an if-else expression. 
+
+   + Using the SQL Query Builder
+     Use the Query Builder to build SQL queries without coding. The Query Builder enables you to search and filter database objects, select objects and columns, create relationships between objects, and view formatted query results with minimal
+     SQL knowledge.
+     
+     ...
+
+@3 Structuring Data
+  This chapter describes techniques for structuring the data that is returned by BI Publisher's data engine, including grouping,
+  linking, group filters, and group-level and global-level functions.
+  
+  This chapter includes the following sections:
+   • Working with Data Models
+   • Features of the Data Model Editor
+   • About the Interface
+   • Creating Links Between Data Sets
+     • Creating Element-Level Links
+     • Creating Group-Level Links
+   • Creating Subgroups
+   • Moving an Element Between a Parent Group and a Child Group
+   • Creating Group-Level Aggregate Elements
+   • Creating Group Filters
+   • Performing Element-Level Functions
+   • Setting Element Properties
+   • Sorting Data
+   • Performing Group-Level Functions
+   • Performing Global-Level Functions
+   • Using the Structure View to Edit Your Data Structure
+   • Function Reference
+
+   + Working with Data Models
+     The Data Model diagram helps you to quickly and easily define data sets, break groups, and totals for a report 
+     based on multiple data sets.
+     •Multipart Unrelated Data Sets
+       If you dont link the data sets, the data engine produces a multipart unrelated query data set.
+     •Multipart Related Data Sets
+       The result is often called a master/detail, or parent/ child relationship that is defined 
+       with a data link between two data sets or queries.
+       When you run a master/detail data model, each row of the master (or parent) query executes 
+       a query against the detail (or child) to retrieve only matching rows
+     •Guidelines for Working with Data Sets
+       Certain guidelines are recommended for building data models
+       - Reduce the number of data sets or queries in your data model as much as possible
+       + You should only use multi-query data models in the following scenarios:
+         – To perform functions that the query type, such as a SQL query, does not support directly.
+         – To support complex views, for example, distributed queries or GROUP BY queries.
+         – To simulate a view when you do not have or want to use a view.
+
+   + Features of the Data Model Editor
+    The data model editor enables you to combine data from multiple data sets into a single XML data structure
+    The data model editor supports the following:
+     • Group data: You can create groups to modify the hierarchy of the data appearing in a data model
+     • Link data: Define master-detail links between data sets to group data at multiple levels
+     • Aggregate data: Create group level totals and subtotals
+     • Transform data: Modify source data to conform to business terms and reporting requirements
+     • Create calculations: Compute data values that are required for your report that are not available in the underlying data sources
+     
+     -> The data model editor provides functions at the element level, the group level, and the global level.
+
+   + About the Interface
+    By default, the data sets that you created are shown in the Diagram View as separate objects.
+    The data set structure builder has three views:
+     • Diagram View ->  displays data sets and enables graphically creating links and filters, adding elements
+     • Structure View
+        Tabla View: Displays element properties in a table and enables updating XML properties
+        Output View: provides a clear view of the XML structure that is generated.
+     • The Code View displays the data structure code created by the data structure builder that is read by the data engine.
+
+   + Creating Links Between Data Sets
+     You can use the BI Publisher data engine to combine and structure data after you extract it from the data source.
+     Sometimes you cannot join data at the source when data resides in disparate sources such as Microsoft SQL Server 
+     and an Oracle Database. Structuring your data so that it matches the intended layout optimizes document generation.
+     
+     You can create links as element-level links or group-level links. The resulting, hierarchical XML data is the same.
+     Creating links as element-level links is the preferred method. Group-level links are provided for backward compatibility.
+
+     + About Element-Level Links
+      Element-level links create a bind (join) between two data sets and define a masterdetail (parent-child) relationship between them.
+      When you use element-level links to link data sets, you do not need to code a join between the two data sets through a bind variable.
+      
+      •Creating Element-Level Links
+       1. Open the element action menu and click Create Link.
+       2. In the Create Link dialog, choose the element, and click OK
+      
+      •Deleting Element-Level Links
+       - Open the element action menu for either element and click Delete Link
+       - or Select the element connector to display the linked element names and click the delete button
+       
+     
+     + About Group-Level Links
+      Group-level links determine how data sets are structured as hierarchical XML, but lack the join information
+      When you define a group-level link, you must update your query with a link between the two data sets through a unique bind variable.
+
+      •Creating Group-Level Links
+       1. In the Parent Group Open the Group action menu and click Create Group Link.
+       2. In the Create Group Link dialog, select the child group and click OK
+       3. Click Menu and then click Edit Data Set to add the bind variables to your query.
+      
+      •Deleting Group-Level Links
+       1. In the parent group, click Menu.
+       2. Click Delete Group Link
+       3. In the Delete Group Link dialog, select the Child Group from the list and click OK.
+
+   + Creating Subgroups
+     In addition to creating parent-child structures by linking two data sets, you can also group elements 
+     in the same data set by other elements.
+     
+     1. Select the element to group with the other elements in the data set.
+     2. Click the element action menu icon to open the menu and select Group by
+
+
+@4 Adding Parameters and Lists of Values
+  • About Parameters
+  • Adding a New Parameter
+  • About Lists of Values
+  • Adding Lists of Values
+  • Adding Flexfield Parameters
+
+  + About Parameters
+    Adding parameters to a data model enables users to interact with data when they view reports.
+    BI PublisherOracle BI Publisher supports the following parameter types:
+     - Text
+     - Menu. Enables making selections from a list of values
+     - Date
+
+
+  + Adding a New Parameter
+    1. On the Data Model components pane, click Parameters and then click Create new Parameter
+    2. Enter a Name for the parameter.
+    3. Select the Data Type from the list. A Date data type only supports a Date Parameter Type.
+    4. Enter a Default Value for the parameter.
+    5. Select the Parameter Type.
+    6. In the Row Placement setting configure the number of rows for displaying the parameters and in which row to place each parameter.
+    
+    -> Creating a Text Parameter: Provides a text box to prompt the user to enter a text entry to pass as the parameter to the data source
+    -> Creating a Menu Parameter: A Menu type parameter presents a list of values to the user. (You must define the list of values first)
+    -> Defining a Date Parameter: Provides a date picker to prompt the user to enter a date to pass as the parameter to the data source.
+
+
+  + About Lists of Values
+    A list of values is a defined set of values that a report consumer can select from to pass a parameter value to your data source.
+    If you define a menu type parameter, the list of values provides the menu of choices.
+    You must define the list of values before you define the menu parameter.
+    
+    Populate the list using one of the following methods:
+    - Fixed Data: Manually enter the list of values.
+    - SQL Query:  Retrieves the values from a database using a SQL query.
+    - Flexfield:  Retrieves the values from a key flexfield defined in Oracle E-Business Suite.
+    
+    + Adding Lists of Values
+      You can create lists of SQL Query or Fixed Data values 
+      1.In the Data Model components pane, click List of Values and then click Create new List of Values.
+      2.Enter a Name for the list and select a Type.
+
+      -> Creating a List from a SQL Query
+        The data engine expects a (display) name-value pair from the list of values query
+        ***The column listed first is used as the display name and the second is used for the value that is passed to the parameter 
+        in the data set query by the data engine. If the query returns only one column, then the same column value is used both as the
+        list of values display name and as the value that is passed to the parameter.
+      
+         1.Select a Data Source from the list
+         2.In the lower pane, select Cache Result (recommended) if you want the results of the query cached for the report session.
+         3.Enter the SQL query or use the Query Builder. 
+
+      ->Creating a List from a Fixed Data Set
+        Create a list from a fixed data set for each label-value pair required.
+         1.In the lower pane, click the Create new List of Values icon to add a Label and Value pair.
+         2.Repeat for each label-value pair required.
+
+      ->Adding Flexfield Parameters
+        BI Publisher presents a dialog to the report consumer to make selections for the flexfield segments 
+        to pass as parameters to the report
+          
+        - Prerequisites for Using Flexfields
+         When defining a list of values, E-Business Suite customers see a list Type called "Flexfield".
+         To enable the flexfield type list of values, BI Publisher must be configured to use EBusiness
+         Suite Security. The flexfield must already be defined in the E-Business Suite.
+         ... see Administrator's Guide for OBIP
+          
+        - Adding a Flexfield Parameter and List of Values
+         1.Add the flexfield list of values (LOV).
+         2.Add a parameter and associate it with the flexfield LOV by selecting your flexfield LOV as the source menu for the parameter.
+         3.Add the Flexfield component to the data model.
+         4.Reference the Flexfield in your SQL query using the &flexfield_name syntax.
+         
+           - Adding the Flexfield List of Values
+            1. On the Data Model components pane, click List of Values and then click Create new List of Values.
+            2. Enter a Name for the list and choose Flexfields as the Type.
+            3. In the Flex_Acct_List:Flexfields pane, enter the following:
+               • Application Short Name - E-Business Suite application short name, for example: SQLGL.
+               • ID Flex Code - Flexfield code defined for this flexfield in the Register Key Flexfield form, for example: GL#.
+               • ID Flex Number - Name of the source column or parameter that contains the flexfield structure information, 
+                 for example: 101 or :STRUCT_NUM.
+         ...
+
+
+@5 Adding Event Triggers
+  • About Triggers
+  • Adding Before Data and After Data Triggers
+  • Creating Schedule Triggers
+  
+  + About Triggers
+   An event trigger checks for an event and when the event occurs, it runs the code associated with the trigger.
+   Oracle BI Publisher supports the following events:
+   • Before data set is executed  • After data set is executed  • Before a scheduled job is about to execute.
+   There are three types of event triggers:
+     • Before Data - Fires right before the data set is executed.
+     • After Data - Fires right after the data engine executes all data sets and generates the XML
+     • Schedule Trigger - Fires when a scheduled job is triggered and before it runs
+   
+   Before data and after data triggers execute a PL/SQL function stored in a PL/SQL package in your Oracle Database. 
+   The return data type for a PL/SQL function inside the package must be a Boolean type and the function must explicitly return TRUE/FALSE
+   A schedule trigger is associated with a scheduled job. It is a SQL query that executes at the time a report job is scheduled to run:
+     If the SQL returns any data, the report job runs. 
+     If the SQL query returns no data, the job instance is skipped.
+
+   Adding Before Data and After Data Triggers
+
+
+
+@6 Adding Flexfields
+  • About Flexfields
+  • Adding Key Flexfields
+  • Adding Descriptive Flexfield
+  
+  + About Flexfields
+    A flexfield is a data field that your organization can customize to your business needs without programming.
+    Oracle applications use two types of flexfields:
+    • key flexfields
+      A key flexfield is a field you can customize to enter multi-segment values such as part numbers, account numbers, and so on.
+    • descriptive flexfields
+      A descriptive flexfield is a field you customize to enter additional information for which your Oracle applications product has not already provided a field.
+
+ 
+   + Adding Key Flexfields ...
+   + Adding Descriptive Flexfields ...
+   
+
+
+@7 Adding Bursting Definitions
+   How to define a bursting definition in the data model to split and deliver your report to multiple recipients.
+   
+   + About Bursting
+   Bursting is a process of splitting data into blocks, generating documents for each block, and delivering the documents 
+   to one or more destinations. The data for the report is generated by executing a query once and then splitting the data 
+   based on a Key value. For each block of the data, a separate document is generated and delivered.
+   
+   Using Oracle BI Publisher bursting enables splitting a single report based on an element in the data model and deliver 
+   the report based on a second element in the data model. Driven by the delivery element, you can apply a different template,
+   output format, delivery method, and locale to each split segment of the report.
+   Example implementations include:
+     • Invoice generation and delivery based on customer-specific layouts and delivery preference.
+     • Financial reporting to generate a master report of all cost centers, splitting out individual cost center reports 
+       to the appropriate manager.
+     • Generation of pay slips to all employees based on one extract and delivered through e-mail.
+
+   + What is the Bursting Definition?
+     A bursting definition is a component of the data model. After you have defined the data sets for the data model, 
+     you can set up one or more bursting definitions.
+     When you set up a bursting definition, you define the following:
+     • The Split By element is an element from the data that governs how the data is split.
+     • The Deliver By element is the element from the data that governs how formatting and delivery options are applied. 
+     • The Delivery Query is a SQL query that you define for BI Publisher to construct the delivery XML data file.
+
+   + Adding a Bursting Definition to Your Data Model
+     1. On the component pane of the data model editor, click Bursting to create a SQL data set to create a bursting query.
+     2. On the Bursting definition table, click the Create new Bursting button.
+     3. Enter the following for this bursting definition:
+        Name - Enter a name for the query, for example, Burst to File.
+        Type - SQL Query is currently the only supported type
+        Data Source - Select the data source that contains the delivery information
+
+   + Defining the Query for the Delivery XML
+     The bursting query is a SQL query that you define to provide BI Publisher with the required information to format 
+     and deliver the report.
+       
+       <ROWSET>
+        <ROW>
+         <KEY></KEY> <!-- The Delivery key and must match the Deliver By element.  -->
+         <TEMPLATE></TEMPLATE> <!-- The name of the Layout to apply. -->
+         <LOCALE></LOCALE> <!-- The template locale, for example, 'en-US' -->
+         <OUTPUT_FORMAT></OUTPUT_FORMAT> <!-- The output format. (HTML, PDF, RTF, Excel...) -->
+         <DEL_CHANNEL></DEL_CHANNEL> <! -- The delivery method (EMAIL, FAX, FILE, FTP, PRINT, WEBDAV, CONTENT, ODCS) -->
+         <TIMEZONE></TIMEZONE> <!-- The time zone to use for the report.  'America/Los_Angeles' valid JAVA FORMAT -->
+         <CALENDAR></CALENDAR> <!-- The calendar to use for the report. (GREGORIAN, ARABIC_HIJRAH, ENGLISH_HIJRAH,...) -->
+         <OUTPUT_NAME></OUTPUT_NAME> <!-- The name to assign to the output file in the report job history -->
+         <SAVE_OUTPUT></SAVE_OUTPUT> <!-- Indicates whether to save the output documents to BI Publisher history tables -->
+         <PARAMETER1></PARAMETER1> <!-- The values required for the parameters depend on the delivery method chosen. -->
+         <PARAMETER2></PARAMETER2>
+         <PARAMETER3></PARAMETER3>
+         <PARAMETER4></PARAMETER4>
+         <PARAMETER5></PARAMETER5>
+         <PARAMETER6></PARAMETER6>
+         <PARAMETER7></PARAMETER7>
+         <PARAMETER8></PARAMETER8>
+         <PARAMETER9></PARAMETER9>
+         <PARAMETER10></PARAMETER10>
+        </ROW>
+       </ROWSET>
+      
+   + Passing a Parameter to the Bursting Query
+     You can pass the value for an element of your bursting XML using a parameter defined in the data model.
+     
+   + Defining the Split By and Deliver By Elements for a CLOB/XML Data Set
+     If the split-by and deliver-by elements required for your bursting definition reside in a data set retrieved from a CLOB 
+     column in a database, you therefore must manually enter the XPath to locate each element in the retrieved XML data set. 
+
+
+@8 Adding Custom Metadata for Oracle WebCenter Content Server
+  When delivering reports to an Oracle WebCenter Content Server, BI Publisher can populate custom metadata fields defined 
+  in your document profiles. Use the data model editor to map fields from your data source to the custom metadata fields.
+
+  • About Custom Metadata Mapping
+    The Custom Metadata component of the data model enables mapping data fields, for example, invoice number or customer name, 
+    from your data model to the metadata fields defined in document profile rules configured on your Oracle WebCenter Content Server.
+
+  • Mapping Data Fields to Custom Metadata Fields
+    1. In the data model editor task pane, click Custom Metadata.
+    2. Oracle WebCenter Content Server stores metadata under a document profile. A document profile is further nested into rules. 
+    To retrieve the metadata fields for mapping, you first select the WebCenter server, then the Content Profile, then the Rules set.
+    On the Custom Metadata header region, select the Rules as follows:
+      - Server — Select the Web content server where the content profile is defined.
+      - Content Profile — Select the content profile that includes the rules that define custom metadata fields.
+      - Rules — Select the Rules set that specifies the metadata fields.
+    3. Click Load Metadata. The lower pane displays the metadata fields defined in the Rules you selected.
+    4. For each metadata field, map a data field from your data sets by selecting it from the Data Mapping list.
+    5. When you are done with mapping the metadata fields, click Save.
+
+  • Deleting Unused Metadata Fields
+    BI Publisher loads all the metadata fields defined for the Rules set that you select. You can delete unneeded custom metadata fields
+    1. Select the metadata field, either by clicking the field name on the left pane or by clicking the selection column in the table.
+    2. Click the Delete button
+    
+
+@9 Performance Best Practices
+  Unnecessarily complex data sets can result in poor performance of data model execution.
+  
+  • Know Oracle WebLogic Server Default Time Out Setting
+    WebLogic Server has a default time out of 600 seconds for each thread that spans for a request.
+    When the time exceeds 600 seconds, Oracle WebLogic Server marks the thread as  Stuck. 
+    When the number of Stuck threads reaches 25, the server shuts down.
+    
+  • Best Practices for SQL Data Sets
+    Consider the following tips to help you create more efficient SQL data sets:
+    + Only Return the Data You Need
+      - Always avoid the use of *
+      - Use a WHERE clause and bind parameters whenever possible to restrict the returned data more precisely.
+    + Use Column Aliases to Shorten XML File Length
+      The shorter the column name, the smaller the resulting XML file; the smaller the XML file the faster the system parses it.
+    + Avoid Using Group Filters by Enhancing Your Query
+      Although the Data Model Group Filter feature enables you to remove records retrieved by your query, 
+      this process takes place in the middle tier, which is much less efficient than the database tier.
+    + Avoid PL/SQL Calls in WHERE Clauses
+      PL/SQL function calls in the WHERE clause of the query can result in multiple executions.
+      These function calls execute for each row found in the database that matches
+    + Avoid Use of the System Dual Table
+      You should avoid using the system DUAL table when not required.
+    + Avoid PL/SQL Calls at the Element Level
+    + Avoid Including Multiple Data Sets
+      It can seem desirable to create one data model with multiple data sets to serve multiple reports, 
+      but this practice results in very poor performance.
+      When a report runs, the data processor executes all data sets irrespective of whether the data is used in the final output
+    + Avoid Nested Data Sets
+      The data model provides a mechanism to create parent-child hierarchy by linking elements from one data set to another.
+      At run time, the data processor executes the parent query and for each row in the parent executes the child query. 
+      When a data model has many nested parent-child relationships slow processing can result.   
+    + Avoid In-Line Queries/Subquery as Summary Columns
+      In-line queries execute for each column for each row. 
+      This is not scalable and cannot perform well. Avoid using in-line sub queries whenever possible.
+    + Avoid Excessive Parameter Bind Values
+      Oracle Database allows bind maximum of 1000 values per parameter.
+      Binding a large number of parameter values is inefficient. Avoid binding more than 100 values to a parameter.
+    + Tips for Multi-value Parameters
+      Report consumers often must run reports that support the certain conditions.
+      - If no parameter is selected (null), then return all.
+      - Allow selection of multiple parameter values
+      In these cases the use of NVL() does not work, you should therefore use
+      - COALESCE() for queries against Oracle Database   
+      - CASE / WHEN for Oracle BI EE (logical) queries
+    + Group Break and Sorting Data
