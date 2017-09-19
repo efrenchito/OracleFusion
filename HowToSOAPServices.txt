@@ -1,0 +1,213 @@
+@links
+@About SOAP Web Services
+@Understanding Business Object Services
+@ Discovering Web Services
+
+
+@links
+Oracle Enterprise Repository -> http://www.oracle.com/webfolder/technetwork/docs/HTML/oer-redirect.html
+SOAP Web Services for Financials -> http://docs.oracle.com/cloud/farel12/financialscs_gs/OESWF/toc.htm
+
+
+@About SOAP Web Services
+ Use Simple Object Access Protocol (SOAP) web services to integrate with or extend Oracle Applications Cloud.
+
+ SOAP web services in Oracle Applications Cloud can be categorized into:
+  Business Object Services: Services that expose data and operations on a business object such as an opportunity or a marketing campaign.
+   These services are implemented using the Application Development Framework (ADF). Therefore, the services share interface structure, 
+   common types, and standard create, read, update, and delete (CRUD) operations.
+  Process Services: Services that orchestrate business processes and not centered around any particular business object. 
+   These services are typically implemented using Service-Oriented Architecture (SOA) composites.
+   
+ SOAP web services are based on the following industry standards:
+  Extensible Markup Language XML: A data format that allows uniform communication between web services consumers and web services providers.
+  XML Schema: A framework that describes XML vocabulary used in business transactions.
+  Simple Object Access Protocol: A protocol for exchanging structured information in the implementation of web services.
+  Web Services Description Language (WSDL): An XML-based language that provides a model for describing SOAP-based web services.
+  WS-Policy: A flexible and extensible grammar framework that describes the capabilities, requirements, and general characteristics of web
+  services using the policies.   
+
+ Web Services Overview
+  A web service is characterized by three factors:
+   What they do: The business functionality they expose
+   Where they are: The web site that exposes the business functionality
+   How they can be accessed: The set of published interfaces required to use the exposed functionality
+  
+  Web Service Life Cycle
+   A business object web service goes through three phases in a life cycle. 
+   1. Active
+   2. Deprecated
+   2. Obsolete
+
+  Backward Compatibility for Web Services
+   Any change to a service must be backward compatible and must not break the existing code: 
+    Adding new operations/Adding new optional attributes for service data object.
+   Backward incompatible changes include:
+   • Removing an operation
+   • Removing a parameter in an operation
+   • Changing the parameter type of an existing operation
+   • Renaming an attribute of a service data object
+   • Adding a mandatory attribute to a service data object
+   • Changing the functional behavior of an operation (Example: The service returns a different output when the same values are passed in)
+  
+  Web Service Versioning
+   When a backward incompatible change is required for a service, the change is not made directly to the service. Instead, the existing
+   service is left as is, and its life cycle is updated to the Deprecated phase. Both versions of the service are supported until the
+   deprecated service is finally obsolete. At this point, only the active service is supported.
+  
+   https://(CommonDomain,Applications Core Setup)/fndAppCoreServices/ServiceCatalogService?WSDL
+   https://edyg-test.fin.us2.oraclecloud.com/fndAppCoreServices/ServiceCatalogService?WSDL
+
+  Managing Web Services
+   • Browse the web services in Oracle Applications Cloud.
+   • Identify the web services provisioned on my cloud instance.
+   • Find out about operations defined on a particular service and the shape of the request and response payloads.
+   • Learn about using create, get, update, merge, delete, find, and process (CRUD) operations.
+   • Get the service end point URL for a particular web service deployed to my cloud instance.
+   • Learn what it means when a web service is marked as Deprecated.
+   • Understand the changes to a service interface when a cloud instance is upgraded to a new release.
+
+
+@Understanding Business Object Services
+  
+  + Service Interface Artifacts
+   A service interface is defined by three artifacts.
+    • Service WSDL: Contains standard WSDL, display name and service, operation and operation payload elements.
+      A service WSDL follows the standard structure of a WSDL document.
+      - Namespace declarations
+      - WSDL documentation: Display name, description, operation name, description, and descriptions of request and response payload elements
+      - Partner link definition
+      - Security policy definition
+      - Type definition through imports of XSDs
+      - Message definition
+      - Port type and operation definition
+      - Binding definition
+      - Service definition
+    • Service XSD: Defines request and response payload types in a separate XSD, which has the same name as the WSDL.
+      A service XSD schema has the following basic structure:
+      - Namespace declarations
+      - Imports and includes the specifications of XSDs on which this schema definition has dependencies
+      - Definition of the elements of the request and response payloads for synchronous/asynchronous versions of all the service operations
+    • Service Data Object XSDs: Defines the service data object as a complex type and the attributes as the elements in the complex type.
+      Each service data object has one XSD that describes the object and its attributes. For example, the Sales Lead object is defined in MklLead.xsd, the Sales Lead products are defined in MklProdAssoc.xsd, and the Sales Lead contacts are defined in MklLeadTcMembers.xsd. A service data object is uniquely defined by a QName, which is the qualified name of the corresponding XSD.
+  
+  + Business Object Service Data Types
+   A service operation payload element and service data object attribute can be one of the following data types:
+    • Built-in data types
+      The built-in data types are defined in the XML Schema namespace. For more information, refer to World Wide Web Consortium (W3C).
+    • Complex data types defined by Application Development Framework (ADF)
+      The complex data types defined by ADF are used as data types for service operation payload elements and service data object attributes.
+    • Complex data types defined by Oracle Applications Cloud, which are effectively the service data objects
+      The complex data types defined by Oracle Applications Cloud are:
+      - Service data objects
+      - Complex types related to the service data objects that extend {http://xmlns.oracle.com/adf/svc/types/}MethodResult type
+      
+  + Business Object Service Operations
+   A service may be exposed to standard operations and also to custom operations that have signatures and behaviors unique to that service.
+   
+   ...
+
+@Discovering Web Services
+
+ + Using this guide
+  To discover the public external SOAP web services in Oracle Applications Cloud, you can use the SOAP Web Services guides for the 
+  appropriate Oracle Applications Cloud service, Developer Connect, or the Service Catalog Service. Information includes public external 
+  services for a specific cloud instance and new services that are introduced in patches and customizations.
+
+  Business Object Services Information
+  • Description: Provides an overview of the process service.
+  • Life Cycle Status: Indicates whether the service is Active or Deprecated. 
+  • QName: Holds a unique identifier for the service.
+  • Service WSDL URL: Contains the tokenized URL for the concrete service WSDL from your cloud instance.
+  • Logical Business Objects: Contains the business object that the service defines.
+  • Relationships: Describes how the service is related to service data objects and other business object services.
+  • Operations: Contains information about the operations exposed in the service interface on the business object.
+  • Security: Includes information about the privileges, also known as entitlements, required to perform the service operations.
+ 
+  Service Data Objects Information
+  • Description: Provides an overview of the process service.
+  • QName: Holds a unique identifier for the service.
+  • Logical Business Objects
+  • Relationships: Describes how the service is related to service data objects and other business object services.
+  • Attributes        
+ 
+  Process Service Information
+  • Description: Provides an overview of the process service.
+  • Life Cycle Status: Indicates whether the service is Active or Deprecated. 
+  • Previous version
+  • Next version
+  • Logical Business Objects
+  • Operations
+
+
+ + Using Developer Connect (Navigator>Tools>Developer Connect)
+  Use Developer Connect portal to discover business object services, to look up service endpoints, and to view service data object metadata
+  and customizations. To use Developer Connect, your job role must have the FND_INTEGRATION_SPECIALIST_JOB, FND_APPLICATION_DEVELOPER_JOB,
+  or ZCA_CUSTOMER_RELATIONSHIP_MANAGEMENT_APPLICATION_ADMINISTRATOR_JOB privilege. Alternately, you can grant the 
+  ATK_WEB_SERVICE_INFO_ACCESS_PRIV entitlement to your custom role, and then grant the custom role to users who require access.
+  
+  This portal runs on your cloud instance, and contains information about the specific set of services deployed to your
+  cloud instance. 
+   -> Navigator>Tools - Developer Connect. 
+     • Summary -> Name|Business Object|Life Cycle|QName|End Point URL|WSDL File|Security Policy|Description
+     • Operations -> Name|Life Cycle|Description
+     • Service Data Object -> Service Data Objects|QName|State|Description|Attributes
+     • Security
+     • Sample Payloads
+
+
+ + Using Service Catalog Service (https://.../fndAppCoreServices/ServiceCatalogService?WSDL)
+  To get the endpoint and metadata for public external services, use the Service Catalog Service provisioned on your cloud instance. 
+  This service returns information specific to the cloud instance and the new services introduced in the patches applied to the instance.
+  You can use this service to programmatically discover and retrieve the required data to invoke the SOAP web services.
+  
+    -> https://(CommonDomain,Applications Core Setup)/fndAppCoreServices/ServiceCatalogService?WSDL
+    • getAllServiceEndpoints: This operation returns information about all the public external services on your cloud instance.
+    • getServiceEndpoint: This operation returns the endpoint and metadata for a specific public external service.
+
+
+ + Deriving Business Object Service Endpoint and WSDL
+  To derive the external virtual host and port for a tokenized service WSDL, use the Review Topology page in the Offerings work area.
+  To access the Review Topology page, your job role must have the ASM_REVIEW_TOPOLOGY_HIERARCHY_PRIV entitlement. 
+  This entitlement is granted to the ASM_APPLICATION_DEPLOYER_DUTY duty role, which is inherited by the ASM_APPLICATION_DEVELOPER_DUTY
+  and ASM_APPLICATION_ADMIN_DUTY duty roles.
+   1. In the Setup and Maintenance work area, click the Tasks icon, and select the Review Topology task.
+   2. On the Review Topology page, select the Detailed tab.
+   3. In the Name column, expand the FADomain node, and then expand the FSCMUI subnode. Use the following as example values:
+    • The virtual host value is fs-your-cloud-hostname.
+    • The port value is 443.
+   4. Replace the values in parenthesis in the tokenized URL with the identified external virtual host and port values: https://fs-your-cloud-hostname:443/fscmService/ServiceCatalogService?wsdl
+   5. Remove ?wsdl from the URL to derive the Service Catalog Service end point URL. Navigating to this URL in a browser results in a blank page as the service tester page is disabled.
+
+
+ + Business Object Service Advanced Examples
+  The standard CRUD operations defined on business object services can be configured to:
+   • Return warning messages along with the service data objects
+   • Process nil and non-nil values for the service data object attribute in the request payload element
+   • Search on parent and child objects based on complex search criteria
+   
+    Services with Warnings Enabled Examples
+    Request Payload Element Behavior
+    find Operation Examples
+    Using Lookups
+
+
+ + Invoking SOAP Web Services
+  SOAP web services in Oracle Applications Cloud can be invoked by using various clients.
+   • Java Client
+   • Oracle Database
+   • .NET Framework
+   • Php
+   • Perl
+   • Python
+   • Ruby
+   
+
+ + Business Object Services
+   • Data Loader
+   • Extract Actions
+   • Flow Actions
+   • Loader Integration
+   • Time Collection Device Setup Data Export
+   • User Details Version 2
+   • Workforce Reputation Service
