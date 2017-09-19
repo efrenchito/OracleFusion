@@ -15,12 +15,36 @@ New Features for Oracle BI Publisher Users
 
 
 @1 Introduction to Using Oracle Business Intelligence Publisher
- Oracle Business Intelligence (BI) Publisher is an enterprise reporting solution for authoring, managing, and delivering all your highly
- formatted documents, such as operational reports, electronic funds transfer documents, government PDF forms, shipping labels, checks, sales
- and marketing letters, and much more.
-
  • Overview of Oracle Business Intelligence Publisher
+   Oracle Business Intelligence (BI) Publisher is an enterprise reporting solution for authoring, managing, and delivering all your highly
+   formatted documents, such as operational reports, electronic funds transfer documents, government PDF forms, shipping labels, checks, 
+   sales and marketing letters, and much more.
  • Tasks for Report Consumers
- • System Requirements and Certification
+   A report consumer performs the following tasks:
+   - Run and view reports in real-time from the BI Publisher catalog.
+   - Schedule reports to run at selected intervals and to various destinations such as printer, fax, or e-mail
+   -  View report history.
+   The tasks that are available to you depend on the permission that is assigned to you by your administrator.
 
 
+@2 Getting Started
+  This chapter describes the basic features of the BI Publisher application including setting preferences, 
+  navigating the catalog, and accessing task menus.
+
+  • Accessing Oracle Business Intelligence Publisher
+    You can access Oracle Business Intelligence Publisher by logging in with credentials or as a guest.
+  • Setting My Account Preferences and Viewing My Groups
+  • About the Home Page
+    The BI Publisher Home page provides an intuitive, task-based entry into Oracle BI Publisher's functions.
+    The Home page is divided into sections that enable you to quickly begin a specific task, locate an object, or access documentation.
+
+  • About the Catalog
+  • About the Global Header
+  • Searching the Catalog
+
+@3 Viewing a Report... 23
+@4 Creating Report Jobs... 33
+@5 Viewing and Managing Report Jobs... 49
+@6 Viewing and Managing Report History... 55
+@7 Managing Reports... 65
+@A Accessibility Features... 71

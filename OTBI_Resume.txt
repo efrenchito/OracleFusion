@@ -6,15 +6,16 @@
 @How to assign roles for BI reporting
 ***"FSCM_OLTP"."Connection Pool"
 
+
 @OTBI Links
-Data Modeling Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/middleware/12211/bip/BIPDM/BIPDM.pdf
-User's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/middleware/12212/bip/BIPUG/BIPUG.pdf
-Administrator's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/cd/E29542_01/bi.1111/e22255/toc.htm
-Developer's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/cd/E29542_01/bi.1111/e22259/toc.htm
-Report Designer's Guide for Oracle Business Intelligence -> https://docs.oracle.com/middleware/12211/bip/BIPRD/BIPRD.pdf
-Database SQL Tuning Guide -> https://docs.oracle.com/database/121/TGSQL/toc.htm
-Oracle BI Publisher Training -> http://www.oracle.com/technetwork/middleware/bi-publisher/learnmore/index.html
-BI Publisher Center Note -> ID 1338762.1
+• Data Modeling Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/middleware/12211/bip/BIPDM/BIPDM.pdf
+ User's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/middleware/12212/bip/BIPUG/BIPUG.pdf
+ Report Designer's Guide for Oracle Business Intelligence -> https://docs.oracle.com/middleware/12211/bip/BIPRD/BIPRD.pdf
+ Administrator's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/cd/E29542_01/bi.1111/e22255/toc.htm
+ Developer's Guide for Oracle Business Intelligence Publisher -> https://docs.oracle.com/cd/E29542_01/bi.1111/e22259/toc.htm
+ Oracle BI Publisher Training -> http://www.oracle.com/technetwork/middleware/bi-publisher/learnmore/index.html
+ BI Publisher Center Note -> ID 1338762.1
+ Database SQL Tuning Guide -> https://docs.oracle.com/database/121/TGSQL/toc.htm
 
 
 @How to assign roles for BI reporting in Oracle Fusion Application
@@ -22,6 +23,7 @@ BI Publisher Center Note -> ID 1338762.1
     Tools>Setup and Maintenance
      [All Tasks]
       Search: Name &manage%duties%
+
 
 @OTBI Components
   (http://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/otbi_ent/v05/lesson3.pdf)
@@ -57,6 +59,7 @@ BI Publisher Center Note -> ID 1338762.1
           Adding Dimension as a Section -> Display as a Slider
         Style
           Color
+
 
 @OTBI Sample Dashboards and Reports
  +Part1. How to Install and Configure the Content (https://www.youtube.com/watch?v=MlN-A5dNT28)
@@ -261,7 +264,6 @@ BI Publisher Center Note -> ID 1338762.1
   Proporciona la funcionalidad para informar Saldos de Oracle Fusion General Ledger. Este provee seguridad, acceso de autoservicio para entregar información contable para su uso en tiempo real.
 
   Se puede diseñar formatos de reportes tradicionales tales como hojas de balance, estado de ganancias y pérdidas y reportes de flujo de efectivo. También diseñar formatos no tradicionales para datos financieros o análiticos que incluyen texto o gráficos.
-
 
 
 

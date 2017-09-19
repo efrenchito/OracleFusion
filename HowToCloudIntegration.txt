@@ -1,0 +1,104 @@
+@links Oracle Financials Cloud Integration
+@Understanding External Data Integration
+@External_Data_Integration_Services_for_Oracle_Cloud_Overview
+@Using External Data Integration Services for Oracle ERP Cloud
+
+
+
+@links Oracle Financials Cloud Integration
+Integration with Oracle Fusion Financials Cloud Service 
+     -> https://cloud.oracle.com/_downloads/WhitePaper_Financials_1_Integration/erp-fusion-finacials-cloud-integration-ds.pdf
+ADF Desktop Integration                                 -> https://docs.oracle.com/middleware/11119/adf/index.html
+                                                        -> https://docs.oracle.com/middleware/1212/adf/ADFDI/toc.htm
+File-Based Data Import for Oracle Financials Cloud      -> https://docs.oracle.com/cloud/latest/financialscs_gs/OEFBF/toc.htm
+Oracle Enterprise Repository                            -> http://www.oracle.com/webfolder/technetwork/docs/HTML/oer-redirect.html
+Financials Cloud R12 Books                              -> http://docs.oracle.com/cloud/farel12/financialscs_gs/docs.htm#development
+Financials SOAP Web Services                            -> http://docs.oracle.com/cloud/farel12/financialscs_gs/OESWF/toc.htm
+Oracle Fusion Application Help                          -> https://fusionhelp.oracle.com/helpPortal/faces/AtkHelpPortalMain
+
+Webservice To Create Journals In Fusion General Ledger (Doc ID 1440064.1)
+
+******
+URL: https://eetr-test.fs.us6.oraclecloud.com/homePage/faces/FuseWelcome
+     /fndAppCoreServices/ServiceCatalogService?WSDL
+ -> https://eetr-test.fs.us6.oraclecloud.com/fndAppCoreServices/ServiceCatalogService?wsdl
+User Name: IMPLEMENTADOR_FIN1
+Password: Frimac2021
+
+
+@Understanding External Data Integration (https://docs.oracle.com/cloud/latest/financialscs_gs/FACSF/FACSF1224258.htm#FACSF1224258)
+
+@External_Data_Integration_Services_for_Oracle_Cloud_Overview
+https://docs.oracle.com/cloud/latest/financialscs_gs/OEFBF/External_Data_Integration_Services_for_Oracle_Cloud_Overview.htm#ExternalDataIntegrationServicesForO-C791C949
+
+@Using External Data Integration Services for Oracle ERP Cloud (2102800.1)
+ + Inbound Data Management:
+  Use External Data Integration Services for Oracle Cloud to load data into Oracle Fusion Applications from external sources.   
+    High-volume data import scenarios
+    Support of legacy data migration, as well as recurring bulk data import 
+    Automation of end-to-end import flows with web service architecture
+    Tracking of import processes for completion, errors, and resubmission
+    Notifications in the form of e-mail and callback to automate data validation and error resolution 
+    Predefined import templates for business objects
+   
+   Overview
+    There are several scenarios where data from on-premise or external business systems needs to be imported into Oracle
+    ERP Cloud to consummate business transactions.
+    
+    External Data Integration Services for Oracle Cloud include the following components:
+    • Templates to structure, format, and generate the data file according to the requirements of the target application tables.
+    • File-based load process to load the data files into the interface tables.
+    • Application-specific data import processes to transfer data from interface tables to the application tables in your 
+      Oracle Fusion Applications.
+
+    -> see Figure2: Inbound data integration orchestration flow (Page 10)
+    
+   
+ + Outbound Data Management
+    Standard prebuilt reports across applications that can be run on demand
+    BI Publisher report capabilities that empower users with custom reporting tools
+    Efficient data extract formats such as XML, CSV, and TXT
+    Automation of end-to-end export flows with web service architecture
+    Tracking of export processes for completion, error tracking, and resubmission
+    Features which empower businesses with notification such as e-mail and callback to initiate downstream business
+     tasks or operations
+     
+   Overview
+    Exporting data from Oracle ERP Cloud typically consists of the following steps:
+     1. Create a BI Publisher report(s) using the respective Enterprise Scheduler (ESS) job or BI Publisher Dashboard.
+     2. Invoke the Oracle ERP Integration Service to initiate the respective export job.
+     3. Provide notification through asynchronous callback upon completion.
+     4. Deliver the status and information using callback to access extracted data file(s) from the Oracle ERP Cloud.
+     5. Review any errors if applicable and take appropriate action, such as process the data extracted for further
+        downstream business operation needs
+
+     -> see Figure3: Outbound data integration orchestration flow
+     
+ + What's New in Oracle ERP Cloud Release 12?
+   1. New operations importBulkData and exportBulkData that further simplify bulk data management.
+   2. Encryption option to secure data files for import and export processes.
+   3. Capability of efficiently handling large files.
+   4. Purging of product application interface tables where needed.
+   5. Multi-threading bulk import process.
+   
+   
+   Automated End-to-End Inbound (Bulk Import) Orchestrated Flow
+    Prerequisites
+      Import a certificate into your local keystore.
+      Configure the sample web service tester.
+      Identify the user name and password to call the Import Journals process.
+      Verify that the user has access to the AttachmentsRead role in the UCM server.
+      Verify the end point URL for the web service.
+     
+    Flow Steps
+     1. Generate the data file for the object you want to import.
+     2. Prepare the request payload for the ImportBulkData operation of the Oracle ERP Integration Service.
+       a. Uploads the data file to the UCM server.
+       b. Loads data from the file on the UCM server to the respective product interface table(s).
+       c. Imports the data from the product interface table(s) to the respective Oracle ERP product main table(s).
+       d. Extracts errors and logs into a ZIP file and uploads them to the respective UCM account.
+       e. Purges the interface and errors tables related to the respective import job.
+       f. Notifies users upon completion of all ESS jobs using bell, e-mail, or callback URL as defined in the payload.
+     3. Receive a bell, e-mail, or callback notification for the request identifier returned by the web service
+     4. Prepare the payload for the getDocumentForDocumentId operation to download the output file.
+     
